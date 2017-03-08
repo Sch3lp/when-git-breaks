@@ -32,6 +32,17 @@ Luckily most tools provide support to _ignore whitespace_.
     git checkout exercise-start
     git merge exercise-merge-conflict
 
+We want only the second sentence without comma's.
+
 Your end result should look like this:
+```
+As you lay tonight beside me baby, I'm the one in the shootin' game
+would you wait for me the other one wait for me
+
+You run with the devil
+You run with the devil
+```
+
+Save your file, and `git add` it. Don't commit just yet.
 
 ### Reverting back
