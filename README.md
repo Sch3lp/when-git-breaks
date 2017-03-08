@@ -47,13 +47,13 @@ Then you can `git revert`, and create a new commit with the undo.
 #### Changing non pushed commit
     git checkout exercise-start
 
-Change the first sentence to _As you lay tonight beside me baby, on the morning that you came_.
+Change the first sentence to _Woke up in a squad car, jailed away for vagrancy_.
 
 Then run `git commit -am "misheard lyrics"` to both add and commit the changed file with a message.
 
-We forgot to also change _tonight_ to _to die_.
+We forgot to also change _jailed away_ to _busted down_.
 
-Let's do that now and change the first sentence to _As you lay to die beside me baby, on the morning that you came_.
+Let's do that now and change the first sentence to _Woke up in a squad car, busted down for vagrancy_.
 
 Now we want to modify the previous commit that we haven't pushed yet to incorporate this new change, so do
 
@@ -68,20 +68,134 @@ And keep the previous commit message as "misheard lyrics".
 We want only the second sentence without comma's.
 
 Your end result should look like this:
+
+    Woke up in a squad car, busted down for vagrancy
+    Outside my cell it sure as hell looked like rain
+
+
+Now that our merge conflict has been resolved, let's add our changed file to our staging directory with `git add lyrics.md`.
+
+#### Reset a failed merge
+
+Let's assume that we botched the merge completely and we want to try the merge again.
+
+    git reset --hard
+
+If we wanted to retain our changes we could've just done `git reset`. `--hard` tells git we don't want any of our changes anymore and want to start clean again.
+
+Perform the merge again with `git merge exercise-merge-conflict`.
+
+This time do the same modification but leave out the `,` in the first sentence as well.
+
+Your end result should now look like this:
+
+    Woke up in a squad car busted down for vagrancy
+    Outside my cell it sure as hell looked like rain
+
+
+Commit with `git commit -am "merged without comma's"`.
+
+#### Reverting a commit
+If we do `git log` now, it should look a bit like this:
+
+    commit 00fae8debff7de2f02e06151edfa0ba27973d709
+    Merge: 31684e8 d1d8969
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 13:27:36 2017 +0100
+
+        merged without comma's
+
+    commit 31684e8abda479d4ae1847ec592b7d893025f4d1
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 11:40:28 2017 +0100
+
+        misheard lyrics
+
+    commit d1d8969fd87f4a1b6c1cde301afcd863916a03e8
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 11:39:09 2017 +0100
+
+        away with comma's
+
+    commit 6dacd22fec2168a1752a9f265c25ad0d74198cde
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 11:35:23 2017 +0100
+
+        init
+
+Let's create a new file in the root directory to contain artists or whatever: `touch artists.md`.
+
+Then add this file and commit it. Your `git log` should have a new top entry:
+
+    commit 93fe283cd8f5f1f6e1ac9be633d4c3b1552aa665
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 13:33:25 2017 +0100
+
+        added artists
+
+Our boss reads our commit history and was yelling that our repository isn't meant to host artist information, _we only do lyrics and we do it good god dammit!_.
+
+We could delete our `artists.md` and commit that, but it would make more sense to add more semantics to this event and `git revert` the commit that added the `artists.md` file.
+
+    git revert 93fe28
+
+**Note**: Your commitish (the number-letter combination that identifies a commit) will look differently so don't just copy paste!
+
+This will add a new commit that reverts the commit that introduced the artists file.
+
+Your log should now look like this:
+
+    commit c9e124348db9cc4229cd471fd24874f686cc3a79
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 13:36:45 2017 +0100
+
+        Revert "added artists"
+        We only do lyrics and we do it good god dammit.
+
+        This reverts commit 93fe283cd8f5f1f6e1ac9be633d4c3b1552aa665.
+
+Since we're rebels (FIGHT THE POWER!), let's add the `artists.md` file anyway and do a `git commit --amend`.
+
+Note that you'll have to also add an artist or change the artists.md file in some way, otherwise git will notice the null operation of deleting an empty file and adding an empty file and tell you about it:
+
 ```
-As you lay to die beside me baby, on the morning that you came
-would you wait for me the other one wait for me
-
-You run with the devil
-You run with the devil
+You asked to amend the most recent commit, but doing so would make
+it empty. You can repeat your command with --allow-empty, or you can
+remove the commit entirely with "git reset HEAD^".
 ```
 
-Now that our merge conflict has been resolved, let's add our changed file to our staging directory with `git add .`.
+#### Reverting a specific file to a previous version according to a commit
+Let's add `##Micky Newbury` as the first line of both the `artists.md` and `lyrics.md` files and commit them.
 
-Let's undo our merge so we can start from our own (`exercise-start`) version again.
+Change the top line in `artists.md` to `## Micky Newbury - 33rd of August` and commit it as well.
 
-    git reset
+Whoops! We were supposed to add that in the `lyrics.md` file, not in the `artists.md`.
 
+Let's checkout the previous version of `artists.md`:
+
+First get the commitish of the latest version
+
+    git log artists.md
+
+    commit b2f610b7ac232515106d8e7b7061db8b7babbada
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 14:43:49 2017 +0100
+
+        added artist
+
+    commit 1e41e4a8e282aae345bb297636d8fb1fc6d2090e
+    Author: Tim Schraepen <sch3lp@gmail.com>
+    Date:   Wed Mar 8 13:52:22 2017 +0100
+
+        added artist info
+
+My latest version is b2f610, I want to checkout the one before that:
+
+    git checkout b2f610~ artists.md
+
+The `~` represents _the one before_.
+
+Now we can change the top line in `lyrics.md` to `## Micky Newbury - 33rd of August` and commit both files again.
 
 ### Note on renaming files to lowercase or uppercase
 Here's a typical scenario:
@@ -90,16 +204,16 @@ You're just learning a new language and you're using another language's naming c
 
 e.g. You're working on a Java project, but you used .Net naming conventions for _packages_.
 
-.Net convention says: Snakecase your package names: `Fleetfoxes`.
+.Net convention says: Snakecase your package names: `Vagrancy`.
 
-Java convention says: lowercase your package names: `fleetfoxes`.
+Java convention says: lowercase your package names: `vagrancy`.
 
 #### Exercise
-The `exercise-snake` branch contains a new directory `com/lyrics/Fleetfoxes` (mind the case).
+The `exercise-snake` branch contains a new directory `com/lyrics/Vagrancy` (mind the case).
 
-The `exercise-lower` branch contains a commit to rename the `com/lyrics/Fleetfoxes` directory to all lowercase: `com/lyrics/fleetfoxes`.
+The `exercise-lower` branch contains a commit to rename the `com/lyrics/Vagrancy` directory to all lowercase: `com/lyrics/vagrancy`.
 
     git checkout exercise-snake
     git merge exercise-lower
 
-What does your directory look like? Is it `Fleetfoxes` or `fleetfoxes`?
+What does your directory look like? Is it `Vagrancy` or `vagrancy`?
