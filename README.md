@@ -34,4 +34,4 @@ Luckily most tools provide support to _ignore whitespace_.
 
 Your end result should look like this:
 
-### Removed too much with `git remove`
+### Reverting back
