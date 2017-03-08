@@ -28,23 +28,6 @@ _Difficult_ because it can be hard to distinguish the important changes in betwe
 
 Luckily most tools provide support to _ignore whitespace_.
 
-#### Exercise
-    git checkout exercise-start
-    git merge exercise-merge-conflict
-
-We want only the second sentence without comma's.
-
-Your end result should look like this:
-```
-As you lay tonight beside me baby, I'm the one in the shootin' game
-would you wait for me the other one wait for me
-
-You run with the devil
-You run with the devil
-```
-
-Save your file, and `git add` it. Don't commit just yet.
-
 ### Reverting back
 Sometimes you just want to undo your changes, because :poop: happens.
 
@@ -60,13 +43,44 @@ You can simply modify your files the way you want, and `git amend`.
 ##### And you have pushed them to a remote already
 Then you can `git revert`, and create a new commit with the undo.
 
-#### Exercise
-From last exercise you should have a changed file that hasn't been committed yet.
+### Exercise
+#### Changing non pushed commit
+    git checkout exercise-start
+
+Change the first sentence to _As you lay tonight beside me baby, on the morning that you came_.
+
+Then run `git commit -am "misheard lyrics"` to both add and commit the changed file with a message.
+
+We forgot to also change _tonight_ to _to die_.
+
+Let's do that now and change the first sentence to _As you lay to die beside me baby, on the morning that you came_.
+
+Now we want to modify the previous commit that we haven't pushed yet to incorporate this new change, so do
+
+    git commit --amend
+
+And keep the previous commit message as "misheard lyrics".
+
+#### Fixing a merge conflict
+
+    git merge exercise-merge-conflict
+
+We want only the second sentence without comma's.
+
+Your end result should look like this:
+```
+As you lay to die beside me baby, on the morning that you came
+would you wait for me the other one wait for me
+
+You run with the devil
+You run with the devil
+```
+
+Now that our merge conflict has been resolved, let's add our changed file to our staging directory with `git add .`.
 
 Let's undo our merge so we can start from our own (`exercise-start`) version again.
 
     git reset
-
 
 
 ### Note on renaming files to lowercase or uppercase
