@@ -209,11 +209,35 @@ e.g. You're working on a Java project, but you used .Net naming conventions for 
 Java convention says: lowercase your package names: `vagrancy`.
 
 #### Exercise
-The `exercise-snake` branch contains a new directory `com/lyrics/Vagrancy` (mind the case).
-
-The `exercise-lower` branch contains a commit to rename the `com/lyrics/Vagrancy` directory to all lowercase: `com/lyrics/vagrancy`.
+The `exercise-snake` branch contains a new directory `com/lyrics/Vagrancy` (mind the case). So let's check that out as our starting position.
 
     git checkout exercise-snake
-    git merge exercise-lower
 
-What does your directory look like? Is it `Vagrancy` or `vagrancy`?
+Now rename `Vagrancy` to lowercase `vagrancy` and perform a `git status`.
+
+_nothing to commit_? But, but, but, but I renamed the directory to lowercase!? What gives GIT?!
+
+So how do we do this properly?
+
+Let's reset back to our starting branch with `git reset --hard`.
+
+So if `mv com/lyrics/Vagrancy com/lyrics/vagrancy` doesn't work, maybe if I prepend it with git it might work?
+
+Try it! I'm getting `fatal: renaming 'com/lyrics/Vagrancy' failed: Invalid argument`.
+
+So let's just try it with an intermediary step:
+
+    git mv com/lyrics/Vagrancy com/lyrics/vagrancytmp
+    git mv com/lyrics/vagrancytmp com/lyrics/vagrancy
+    git status
+
+Git recognized that we really wanted to rename it! Pure barry!
+
+Another way to do it without `git mv` is to rename it to a temp folder, commit that, then rename it to the actual lowercase folder and `git commit --amend`.
+
+When you `git show`, git also tells you it recognized the rename:
+
+    rename from com/lyrics/Vagrancy/.gitkeep
+    rename to com/lyrics/vagrancy/.gitkeep
+
+That's it!
