@@ -44,6 +44,11 @@ You can simply modify your files the way you want, and `git amend`.
 Then you can `git revert`, and create a new commit with the undo.
 
 ### Exercise
+
+Step 1: fork this repository
+
+Step 2: do as instructed
+
 #### Changing non pushed commit
     git checkout exercise-start
 
@@ -156,7 +161,7 @@ Your log should now look like this:
 
 Since we're rebels (FIGHT THE POWER!), let's add the `artists.md` file anyway and do a `git commit --amend`.
 
-Note that you'll have to also add an artist or change the artists.md file in some way, otherwise git will notice the null operation of deleting an empty file and adding an empty file and tell you about it:
+Note that you'll have to also add an artist or change the `artists.md` file in some way, otherwise git will notice the null operation of deleting an empty file and adding an empty file and tell you about it:
 
 ```
 You asked to amend the most recent commit, but doing so would make
