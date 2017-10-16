@@ -69,7 +69,7 @@ And keep the previous commit message as "misheard lyrics".
 
 #### Fixing a merge conflict
 
-    git merge exercise-merge-conflict
+    git merge origin/exercise-merge-conflict
 
 We want only the second sentence without comma's.
 
@@ -225,7 +225,12 @@ _nothing to commit_? But, but, but, but I renamed the directory to lowercase!? W
 
 So how do we do this properly?
 
-Let's reset back to our starting branch with `git reset --hard`.
+Let's reset back to our starting branch. Why can't we use `git reset --hard`?
+
+We'll need to check out another branch first and then checking out the original exercise-snake branch (with the dir starting with a capital V).
+
+    git checkout master
+    git checkout exercise-snake
 
 So if `mv com/lyrics/Vagrancy com/lyrics/vagrancy` doesn't work, maybe if I prepend it with git it might work?
 
@@ -238,6 +243,8 @@ So let's just try it with an intermediary step:
     git status
 
 Git recognized that we really wanted to rename it! Pure barry!
+
+Finally commit this rename to lowercase.
 
 Another way to do it without `git mv` is to rename it to a temp folder, commit that, then rename it to the actual lowercase folder and `git commit --amend`.
 
