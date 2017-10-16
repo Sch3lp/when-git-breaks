@@ -121,7 +121,7 @@ If we do `git log` now, it should look a bit like this:
     Author: Tim Schraepen <sch3lp@gmail.com>
     Date:   Wed Mar 8 11:39:09 2017 +0100
 
-        away with comma's
+        who needs comma's anyway
 
     commit 6dacd22fec2168a1752a9f265c25ad0d74198cde
     Author: Tim Schraepen <sch3lp@gmail.com>
@@ -139,7 +139,7 @@ Then add this file and commit it. Your `git log` should have a new top entry:
 
         added artists
 
-Our boss reads our commit history and was yelling that our repository isn't meant to host artist information, _we only do lyrics and we do it good god dammit!_.
+Our boss reads our commit history and was yelling that our repository isn't meant to host artist information, _we only do lyrics and we do it good, god damn it!_.
 
 We could delete our `artists.md` and commit that, but it would make more sense to add more semantics to this event and `git revert` the commit that added the `artists.md` file.
 
@@ -156,7 +156,7 @@ Your log should now look like this:
     Date:   Wed Mar 8 13:36:45 2017 +0100
 
         Revert "added artists"
-        We only do lyrics and we do it good god dammit.
+        We only do lyrics and we do it good, god damn it.
 
         This reverts commit 93fe283cd8f5f1f6e1ac9be633d4c3b1552aa665.
 
