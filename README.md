@@ -38,7 +38,7 @@ Use `git reset` to undo them.
 
 #### Your changes are in a commit?
 ##### But you haven't pushed them to a remote yet?
-You can simply modify your files the way you want, and `git amend`.
+You can simply modify your files the way you want, and `git commit --amend`.
 
 ##### And you have pushed them to a remote already
 Then you can `git revert`, and create a new commit with the undo.
@@ -47,7 +47,7 @@ Then you can `git revert`, and create a new commit with the undo.
 
 Step 1: fork this repository
 
-Step 2: do as instructed
+Step 2: do as instructed and keep on running `git status` in between steps.
 
 #### Changing non pushed commit
     git checkout exercise-start
@@ -62,6 +62,7 @@ Let's do that now and change the first sentence to _Woke up in a squad car, bust
 
 Now we want to modify the previous commit that we haven't pushed yet to incorporate this new change, so do
 
+    git add lyrics.md
     git commit --amend
 
 And keep the previous commit message as "misheard lyrics".
