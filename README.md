@@ -219,7 +219,7 @@ The `exercise-snake` branch contains a new directory `com/lyrics/Vagrancy` (mind
 
     git checkout exercise-snake
 
-Now rename `Vagrancy` to lowercase `vagrancy` and perform a `git status`.
+Now rename the directory `com/lyrics/Vagrancy` to lowercase `com/lyrics/vagrancy` and perform a `git status`.
 
 _nothing to commit_? But, but, but, but I renamed the directory to lowercase!? What gives GIT?!
 
