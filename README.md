@@ -89,7 +89,7 @@ Let's assume that we botched the merge completely and we want to try the merge a
 
 If we wanted to retain our changes we could've just done `git reset`. `--hard` tells git we don't want any of our changes anymore and want to start clean again.
 
-Perform the merge again with `git merge exercise-merge-conflict`.
+Perform the merge again with `git merge origin/exercise-merge-conflict`.
 
 This time do the same modification but leave out the `,` in the first sentence as well.
 
