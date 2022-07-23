@@ -20,9 +20,10 @@ http://gitignore.io
 * [KDiff3](http://kdiff3.sourceforge.net/)
 * [SourceTree](https://www.sourcetreeapp.com/)
 * [IntelliJ](https://www.jetbrains.com/help/idea/2016.3/using-git-integration.html), or any proper IDE actually
+* [EditorConfig](https://editorconfig.org/)
 
 #### Whitespace and CR/LF conflicts
-Be aware that inconsistent formatting settings on your team's workstations can cause merge conflicts that are _difficult_ to solve.
+Be aware that inconsistent formatting settings on your team's workstations can cause merge conflicts that are _difficult_ to solve. Avoid these by using [EditorConfig](https://editorconfig.org/) to share formatting settings. 
 
 _Difficult_ because it can be hard to distinguish the important changes in between the new line changes or whitespaces.
 
